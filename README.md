@@ -17,9 +17,9 @@ The following commands are installed onto this image:
 `optimize-svg` will minimize svgs (and webfonts) files with svgo.  
 `optimize-jpg` will minimize jpg files with guetzli.  
 `optimize-png` will minimize png files zopflipng.  
-`optimize-webp` will take and png/jpg files and create a webp version of it and append '.webp' to its filename.
-`generate-static-gzip` will take common txt based files and generate a static gzipped version of it, appending '.gz' to it.
-`generate-static-br` will take common txt based files and generate a static brotlied version of it, appending '.br' to it.
+`optimize-webp` will take and png/jpg files and create a webp version of it and append '.webp' to its filename.  
+`generate-static-gzip` will take common txt based files and generate a static gzipped version of it, appending '.gz' to it.  
+`generate-static-br` will take common txt based files and generate a static brotlied version of it, appending '.br' to it.  
 
 The commands take a single target directory as parameter, so `optimize-png .` will optimize recursivly from the current directory.
 
