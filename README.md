@@ -1,6 +1,8 @@
-# media optimizer image for docker
+# Media optimizer
 
 Toolkit for docker based multi-stage builds to optimize images for production systems.
+
+It combines the following tools:
 
 - svgo (SVG optimization)
 - zopfli (PNG optimization)
@@ -8,17 +10,17 @@ Toolkit for docker based multi-stage builds to optimize images for production sy
 - webp (smaller jpg/png alternative)
 - brotli (better GZIP compression)
 
-# TOC
+The idea is to optimize all media assets after the the app was compiled and before they are installed to the delivering service.
+
+# Table of contents
+- [Overview](#overview)
 - [Usage](#usage)
-  - [Overview](#overview)
   - [Docker multi-stage](#docker-multi-stage)
   - [Bash aliases](#bash-aliases)
 - [Misc](#misc)
   - [NGINX](#nginx)
 
-## Usage
-
-### Overview
+## Overview
 
 The following commands are available on this image:
 
@@ -32,6 +34,8 @@ The following commands are available on this image:
 The commands take a single target directory as parameter, so `optimize-png .` will optimize recursivly from the current directory.
 
 Please beware: All `optimize-*` commands are **!!! destructive !!!** to the source image. Its goal is to replace the source image with the optimized one **inplace**. This allows to have higher quality images inside the repository / lfs, while having optimized images on production without any special rules.
+
+## Usage
 
 ### Docker multi-stage
 
@@ -93,6 +97,6 @@ make sure to reload your current bash with `source ~/.bashrc` and pull the image
 
 ### NGINX
 
-The commands `generate-static-gzip` and `generate-static-br` enable you to use the `gzip_static` and `brotli_static` (needs compilation of nginx) directives and a very fast delivery of precompressed static files. Combine with `open_file_cache` if you see fit.
+The commands `generate-static-gzip` and `generate-static-br` enable you to use the `gzip_static` and `brotli_static` (needs compilation of nginx) directives and allow for a very fast delivery of precompressed static files. Combine with `open_file_cache` if you see fit.
 
-All commands allow for a simple `try_files` rule like: `try_files $uri.webp $uri @index =404;` for static resources, make sure to follow all the guides on how to check if webp is supported using a `map`.
+As for webp, try to use it with `try_files`. One cheap example would be `try_files $uri.webp $uri @index =404;` for static resources, but please make sure that you follow other guides on how check the client for webp capability.
