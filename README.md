@@ -1,18 +1,26 @@
 # media optimizer image for docker
 
-Helper tools to be used in docker multi-stage builds to optimize images for production systems.
+Toolkit for docker based multi-stage builds to optimize images for production systems.
 
 - svgo (SVG optimization)
-- brotli (br compression)
-- zopfli (better gzip compression)
-- guetzli (jpeg optimization)
+- zopfli (PNG optimization)
+- guetzli (JPEG optimization)
 - webp (smaller jpg/png alternative)
+- brotli (better GZIP compression)
+
+# TOC
+- [Usage](#usage)
+  - [Overview](#overview)
+  - [Docker multi-stage](#docker-multi-stage)
+  - [Bash aliases](#bash-aliases)
+- [Misc](#misc)
+  - [NGINX](#nginx)
 
 ## Usage
 
-### commands
+### Overview
 
-The following commands are installed onto this image:
+The following commands are available on this image:
 
 `optimize-svg` will minimize svgs (and webfonts) files with svgo.  
 `optimize-jpg` will minimize jpg files with guetzli.  
@@ -25,7 +33,7 @@ The commands take a single target directory as parameter, so `optimize-png .` wi
 
 Please beware: All `optimize-*` commands are **!!! destructive !!!** to the source image. Its goal is to replace the source image with the optimized one **inplace**. This allows to have higher quality images inside the repository / lfs, while having optimized images on production without any special rules.
 
-### docker multi-stage
+### Docker multi-stage
 
 This example is a three stage build:
 
@@ -33,9 +41,9 @@ This example is a three stage build:
 - Optimize the production resources
 - Installation of the app onto an NGINX server for deployment
 
-Sounds like an overkill, but it illustrates the idea well:
+Sounds like overkill, but it illustrates the idea well:
 
-```
+```sh
 FROM node:8-alpine as app_compile
 
 COPY app/ /app/
@@ -63,13 +71,13 @@ FROM nginx
 COPY --from=app_optimize /app/dist /var/www/html
 ```
 
-### As alias on bash
+### Bash aliases
 
 Please beware: All `optimize-*` commands are **!!! destructive !!!**. Use with caution!
 
 You can use it locally in a one-time mode, in this example for bash by configuring `~/.bash_aliases`:
 
-```
+```sh
 alias optimize-svg='docker run -it --rm -v `pwd`:/app kreischweide/toolchain-mediaoptimizer optimize-svg'
 alias optimize-png='docker run -it --rm -v `pwd`:/app kreischweide/toolchain-mediaoptimizer optimize-png'
 alias optimize-jpg='docker run -it --rm -v `pwd`:/app kreischweide/toolchain-mediaoptimizer optimize-jpg'
@@ -81,7 +89,9 @@ alias generate-static-br='docker run -it --rm -v `pwd`:/app kreischweide/toolcha
 
 make sure to reload your current bash with `source ~/.bashrc` and pull the image before usage with `docker pull kreischweide/toolchain-mediaoptimizer:latest`.
 
-## Nginx
+## Misc
+
+### NGINX
 
 The commands `generate-static-gzip` and `generate-static-br` enable you to use the `gzip_static` and `brotli_static` (needs compilation of nginx) directives and a very fast delivery of precompressed static files. Combine with `open_file_cache` if you see fit.
 
