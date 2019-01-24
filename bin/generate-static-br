@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ "$#" -ne 1 ]; then
+  echo "path must be given"
+  exit 1
+fi
+
+set -ex
+
+for i in `find $@ | grep -E "\.js$|\.css$|\.html$|\.svg$|\.ico$|\.json$|\.txt$|\.map$|\.ttf$|\.ijmap$"`; do brotli "$i"; done
