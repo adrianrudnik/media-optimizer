@@ -54,7 +54,7 @@ RUN set -ex \
     && npm run build \
     && npm run generate    
 
-FROM kreischweide/toolchain-mediaoptimizer as app_optimize
+FROM adrianrudnik/media-optimizer as app_optimize
 
 COPY --from=app_compile /app/dist /app/dist
 
@@ -78,16 +78,16 @@ Please beware: All `optimize-*` commands are **!!! destructive !!!**. Use with c
 You can use it locally in a one-time mode, in this example for bash by configuring `~/.bash_aliases`:
 
 ```sh
-alias optimize-svg='docker run -it --rm -v `pwd`:/app kreischweide/toolchain-mediaoptimizer optimize-svg'
-alias optimize-png='docker run -it --rm -v `pwd`:/app kreischweide/toolchain-mediaoptimizer optimize-png'
-alias optimize-jpg='docker run -it --rm -v `pwd`:/app kreischweide/toolchain-mediaoptimizer optimize-jpg'
-alias optimize-webp='docker run -it --rm -v `pwd`:/app kreischweide/toolchain-mediaoptimizer optimize-webp'
-alias optimize-jpg='docker run -it --rm -v `pwd`:/app kreischweide/toolchain-mediaoptimizer optimize-jpg'
-alias generate-static-gzip='docker run -it --rm -v `pwd`:/app kreischweide/toolchain-mediaoptimizer generate-static-gzip'
-alias generate-static-br='docker run -it --rm -v `pwd`:/app kreischweide/toolchain-mediaoptimizer generate-static-br'
+alias optimize-svg='docker run -it --rm -v `pwd`:/app adrianrudnik/media-optimizer optimize-svg'
+alias optimize-png='docker run -it --rm -v `pwd`:/app adrianrudnik/media-optimizer optimize-png'
+alias optimize-jpg='docker run -it --rm -v `pwd`:/app adrianrudnik/media-optimizer optimize-jpg'
+alias optimize-webp='docker run -it --rm -v `pwd`:/app adrianrudnik/media-optimizer optimize-webp'
+alias optimize-jpg='docker run -it --rm -v `pwd`:/app adrianrudnik/media-optimizer optimize-jpg'
+alias generate-static-gzip='docker run -it --rm -v `pwd`:/app adrianrudnik/media-optimizer generate-static-gzip'
+alias generate-static-br='docker run -it --rm -v `pwd`:/app adrianrudnik/media-optimizer generate-static-br'
 ```
 
-make sure to reload your current bash with `source ~/.bashrc` and pull the image before usage with `docker pull kreischweide/toolchain-mediaoptimizer:latest`.
+make sure to reload your current bash with `source ~/.bashrc` and pull the image before usage with `docker pull adrianrudnik/media-optimizer:latest`.
 
 ## Misc
 
