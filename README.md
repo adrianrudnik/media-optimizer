@@ -86,7 +86,7 @@ alias optimize-svg='docker run -it --rm -v `pwd`:/app adrianrudnik/media-optimiz
 alias optimize-png='docker run -it --rm -v `pwd`:/app adrianrudnik/media-optimizer optimize-png'
 alias optimize-jpg='docker run -it --rm -v `pwd`:/app adrianrudnik/media-optimizer optimize-jpg'
 alias optimize-webp='docker run -it --rm -v `pwd`:/app adrianrudnik/media-optimizer optimize-webp'
-alias optimize-jpg='docker run -it --rm -v `pwd`:/app adrianrudnik/media-optimizer optimize-jpg'
+alias optimize-svg='docker run -it --rm -v `pwd`:/app adrianrudnik/media-optimizer optimize-svg'
 alias generate-static-gzip='docker run -it --rm -v `pwd`:/app adrianrudnik/media-optimizer generate-static-gzip'
 alias generate-static-br='docker run -it --rm -v `pwd`:/app adrianrudnik/media-optimizer generate-static-br'
 ```
